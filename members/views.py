@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader
 from .models import user
-def members(request):
+def get_homepage(request):
   template = loader.get_template('page.html')
   users = user.objects.all()
   context = {'list_of_users' : users}
