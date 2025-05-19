@@ -79,6 +79,9 @@ def delete_blog(request, pk):
         object.delete()
     return redirect("/homepage")
 
+
+
+# Form tạo blog
 @login_required
 def create_blog_form(request):
     template = loader.get_template('blog/create_blog_form.html')
@@ -91,7 +94,7 @@ def create_blog_form(request):
 
 
 
-
+# view dùng để xóa file
 def download_file(request, pk):
     if request.method == "POST":
         my_document = document.objects.get(pk = pk)
