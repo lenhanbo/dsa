@@ -1,0 +1,16 @@
+{% load static %}
+<header>
+    <link rel="stylesheet" type="text/css" href="{% static 'style/style.css' %}">
+</header>
+<nav>
+    <ul id = "nav_bar">
+        {% for key, value in categories.items %}  
+            <a href="/{{ value }}/" style="text-decoration: none;">
+                <li id = "navi_block"> 
+                         {{ key }}   
+                 </li>
+            </a> 
+           
+        {% endfor %}
+    </ul>
+</nav>

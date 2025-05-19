@@ -1,0 +1,70 @@
+{% extends 'blog/master.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock %}
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}"> 
+{% endblock %} 
+
+{% block content %}
+
+    <div class="test" style="overflow: hidden;">
+
+        {% if user == document.author %}
+        <form method="post" action="deleteblog"> 
+                {% csrf_token %}
+                <input type="submit" value="Xóa blog này">
+            </form>
+        {% endif %}
+
+        <div>
+        Tên của tài liệu : {{ document.name }} <br>
+        Tác giả : {{ document.author }} <br>
+        {% if document.file %}
+        Tên file : {{document.get_file_name}}
+        {% endif %}
+        </div>
+        <div style="padding: 10px 20p;"> 
+        Tổng quan về tài liệu : <br>
+         <div style="background-color: greenyellow; border: 1px black solid;min-height:100px;"> {{ document.description}}  
+
+         </div>
+        </div>
+        <br>
+        <br>
+        {% if document.file %}
+        <form action="download/" method="post">
+            {% csrf_token %}
+            <input type="submit" value="download file">
+        </form>
+        {% endif %}
+    </div> 
+    <br>
+    <!-- Tạo form để tạo comment-->
+    <form method="post" action = "submitcomment"> 
+        {% csrf_token %}
+    {{ form.as_div }}
+    <input type="submit" value="Gửi bình luận">
+    </form>
+    <br>
+    <br>
+    Bình luận về tài liệu : 
+    {% for x in comments %}
+    <div>
+        <div style="border: 1px black solid;">
+            
+        Đăng bởi : {{x.author}} vào {{x.upload_date|date:"H:i:s d/m/Y" }} 
+        {% if user == x.author %}
+            <form method="post" action="deletecomment/{{x.id}}"> 
+                {% csrf_token %}
+                <input type="submit" value="Xóa comment">
+            </form>
+        {% endif %} 
+        </div>
+        <div style="border: 1px black solid; min-height: 30px;">
+            {{x.content}}
+        </div>
+        
+    </div>
+    {% endfor %}
+{% endblock %}

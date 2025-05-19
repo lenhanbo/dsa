@@ -1,0 +1,49 @@
+
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}{{tiltle}} {% endblock %}
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'shopping/style.css' %}"> 
+{% endblock %} 
+
+{% block content %}
+
+    <div >
+        <!-- Các thông tin của sản phẩm  -->
+        {% for x in items %} 
+            <a class = 'item_block' href= "{{x.get_absolute_url}}">
+                <div > 
+                    Số thứ tự :   {{ x.id }} <br> 
+                    Tên món hàng : {{x.name}}<br>
+                    Giá : {{x.price}} đồng <br>
+                    Người bán: {{x.Seller.name}} <br>
+                </div>
+            </a>
+            <!-- Nếu chia hết cho 5 thì xuống dòng  -->
+            {% if forloop.counter|divisibleby:5%}
+                <div style="clear :both"></div>
+            {% endif %}
+        {% endfor %}
+
+            
+        <div style="clear :both"></div> 
+            <br>
+        <!-- Đánh dấu trang -->
+        {% if is_paginated %}
+            <div style="text-align:center; margin-left: 40%;">
+                {% if page_obj.has_previous %}
+                    <a style="float: left; padding: 20px 10px;" href = "{{request.path}}?page={{page_obj.previous_page_number}}"> Về trước  </a>
+                {% endif %}
+
+                <span style="float: left; padding: 20px 10px;"> {{page_obj.number}}/{{page_obj.paginator.num_pages}}</span>
+
+                {% if page_obj.has_next %}
+                    <a style="float: left; padding: 20px 10px;" href = "{{request.path}}?page={{page_obj.next_page_number}}"> Tới </a>
+                {% endif %}
+            </div>
+            
+            <div style="clear :both"></div> 
+        {% endif %}
+    </div>
+{% endblock %}

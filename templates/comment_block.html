@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<div style="background-color: red;"> 
+    Từ người dùng : {{ user_name }} 
+</div>
+<div style="background-color: yellow;"> 
+    Nội dung: <br>
+    {{ content }}
+</div>
+<div> 
+    <form  method="POST" action="/delete_comment/{{id}}"> {% csrf_token %} 
+        <input type="submit" value="Delete this comment">
+    </form>
+</div>
+</html>

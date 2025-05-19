@@ -1,0 +1,17 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block title %} {{author.name}} {% endblock %}
+{% block style %} <link rel="stylesheet" type="text/css" href="{% static 'shopping/style.css' %}">   {% endblock %}
+{% block content %}
+    <div> 
+        Tên người dùng : {{author.name}} <br>
+        Số dư : {{ author.money}}  <br>
+        Rating : {{author.rating}}
+    </div>
+    <div> 
+        Các sản phẩm đã đăng :
+        {% for x in author.item_set.all %}
+            <a href = "{{ x.get_absolute_url }}"">{{ x.name }} </a> <br>
+        {% endfor %}
+    </div>
+{% endblock %}

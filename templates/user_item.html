@@ -1,0 +1,17 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block title %} {{author.name}} {% endblock %}
+{% block style %} <link rel="stylesheet" type="text/css" href="{% static 'shopping/style.css' %}">   {% endblock %}
+{% block content %}
+    {% if perms.shopping.towatch %}
+    
+    <div> 
+        Sản phẩm mà bạn đã đăng tải
+        {% for x in item %}
+        <div> {{x.name}} , {{x.price}}</div>
+        {% endfor %}
+    </div>
+    {% else %}
+    ok
+    {% endif %} 
+{% endblock %}

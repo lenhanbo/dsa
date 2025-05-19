@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <div>
+        <ul>
+            
+            {% for x in user_list %}
+            <li> <a href="{{x.get_link}}">{{ x.first_name }} {{x.last_name}}</a></li>
+            {% endfor %}
+        </ul>
+
+    </div>
+</html>

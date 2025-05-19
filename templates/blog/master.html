@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        
+        <title> {% block title %}  {% endblock %}</title>
+        {% block style %}    {% endblock %}
+            
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}"> 
+        
+    </head>
+    <body >
+        <div style="background-color: yellow; position: fixed;height: 100vh; width: 200px; top:0; left: 0;"> 
+            {% if user.is_authenticated %}
+            
+            <ul style= "list-style-type: none;">
+            <li  ><div> Tên người dùng : {{user.get_username}} </div></li>
+            <li >
+            <form id="logout-form" method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link">Đăng xuất</button>
+              </form>
+            {% else %}
+              <a  href="{% url 'login' %}">Đăng nhập</a>
+            {% endif %}
+            </li>
+                <li class = "page_navi" > <a  href="{% url 'homepage' %}"> Trang chủ</a> </li> 
+            {% if user.is_authenticated %}
+            <li> <a href = "{% url 'create_blog' %}" style="text-decoration: none;"> Tạo blog/tài liệu mới</a></li>
+            {% endif %}
+            </ul>
+            <div style="clear :both"></div> 
+            
+        </div>
+        <div style="margin-left: 220px;"> 
+        {% block content %}
+        {% endblock %}
+        </div>
+       
+    </body>
+    
+</html>

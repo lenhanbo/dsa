@@ -1,0 +1,17 @@
+{% extends "master.html" %}
+<!-- truyen vao bien user -->
+{% block title %}
+	Thông tin người dùng
+{% endblock %}
+
+{% block content %}
+    {% url 'book' %}
+    {% for item in item_list %}
+    <div> 
+
+        Tên của sản phẩm là {{item.name }}
+        Giá : {{item.price}}
+       
+    </div> 
+    {% endfor %}
+{% endblock %}

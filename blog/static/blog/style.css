@@ -1,0 +1,13 @@
+.navi_block{
+	float : left;
+	padding: 20px 30px;
+}
+.blog_block{
+	float: left;
+	background-color: cyan;
+	padding: 40px 50px;
+	text-decoration: none;
+}
+.blog_block:hover{
+	background-color: blueviolet;
+}

@@ -1,0 +1,11 @@
+{% extends 'master.html' %}
+{% block title %} {{item.name}} {%  endblock %}
+{% block content %} 
+    {{items.name}}
+    Sản phẩm của <a href = "{{ item.Seller.get_absolute_url }}"">{{ item.Seller.name }} </a>
+    <br>
+    <div> 
+        Thông tin về sản phẩm: 
+            {{item.description}} 
+    </div>
+{% endblock %}
