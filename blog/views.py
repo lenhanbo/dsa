@@ -3,6 +3,7 @@ from django.views import generic
 from django.template import loader
 from django.http import HttpResponse, Http404, FileResponse
 from .models import document, comment
+from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -10,7 +11,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 import os
 # from .models import 
-from .forms import create_blog, create_comment
+from .forms import create_blog, create_comment, register
 # Create your views here.
 
 class homepage(LoginRequiredMixin, generic.ListView):
@@ -103,4 +104,26 @@ def download_file(request, pk):
         file_path = my_document.file.path
         return FileResponse(open(file_path,'rb'), as_attachment=1,filename=os.path.basename(file_path))
     
-        
+#form de dang ky
+def register_form(request):
+    template = loader.get_template('blog/register_form.html')
+    registerform = register()
+    context = {
+        'form' : registerform,
+    }
+    if request.method == "POST": ## nếu có form được chuyển tới
+        registration = register(request.POST)
+        context['form'] = registration
+        if registration.is_valid():
+            user = registration.save(commit = False) #Lưu từ form -> object của model để chỉnh sửa sau đó mới save
+            user.set_password(registration.cleaned_data['password'])
+            user.save()
+            messages.success(request, "Đăng ký thành công! Bạn sẽ được chuyển hướng đến trang đăng nhập.")
+            return redirect('/accounts/login/')
+        else :
+            for field, errors in registration.errors.items():
+                for error in errors:
+                    messages.error(request, error)
+            print(registration.errors)
+    
+    return HttpResponse(template.render(context, request))

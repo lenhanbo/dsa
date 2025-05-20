@@ -1,7 +1,17 @@
 {% extends "blog/master.html" %}
 
 {% block content %}
-
+  {% if messages %}
+        <script>
+            let messages = [];
+            {% for message in messages  %}
+                messages.push("{{ message|escapejs }}");
+            {% endfor %}
+            if (messages.length > 0) {
+                alert(messages.join("\n"));
+            }
+        </script>
+    {% endif %}
   {% if form.errors %}
     <p>Tên đăng nhập hoặc mật khẩu sai, xin thử lại</p>
   {% endif %}
@@ -29,7 +39,7 @@
     <input type="submit" value="đăng nhập">
     <input type="hidden" name="next" value="{{ next }}">
   </form>
-
+  
   {# Assumes you set up the password_reset view in your URLConf #}
   <p><a href="{% url 'password_reset' %}">Quên mật khẩu?</a></p>
 

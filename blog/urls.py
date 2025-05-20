@@ -10,4 +10,7 @@ urlpatterns = [
     path('document/<int:pk>/submitcomment', views.submit_comment_form, name="submit_comment_form"),
     path('document/<int:pk>/deletecomment/<int:id>', views.delete_comment, name='delete_comment'),
     path('document/<int:pk>/deleteblog', views.delete_blog, name="delete_blog"),
+    path('register/', views.register_form, name="register_form"),
+    
+    # path('register/submit', views.submit_register, name="submit_register"),
 ]
